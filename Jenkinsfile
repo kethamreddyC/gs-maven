@@ -1,19 +1,20 @@
 pipeline {
 	agent any
 
-	triggers {
-		pollSCM 'H/10 * * * *'
-	}
+	// triggers {
+	// 	pollSCM 'H/10 * * * *'
+	// }
 
-	options {
-		disableConcurrentBuilds()
-		buildDiscarder(logRotator(numToKeepStr: '14'))
-	}
+	// options {
+	// 	disableConcurrentBuilds()
+	// 	buildDiscarder(logRotator(numToKeepStr: '14'))
+	// }
 
 	stages {
 		
 
-		stage("Build"){
+		stage("Build")  {
+			
 			steps {
 				sh 'mvn clean install -f complete/pom.xml'
 
