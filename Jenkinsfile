@@ -11,6 +11,15 @@ pipeline {
 	}
 
 	stages {
+		
+
+		stage("Build"){
+			steps {
+				sh 'mvn clean install -f complete/pom.xml'
+
+		}
+		}
+	
 		stage("test: baseline (jdk8)") {
 			//agent {
 			// 	docker {
@@ -29,10 +38,10 @@ pipeline {
 	post {
 		changed {
 			script {
-				slackSend(
-						color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
-						channel: '#sagan-content',
-						message: "${currentBuild.fullDisplayName} - `${currentBuild.currentResult}`\n${env.BUILD_URL}")
+				// slackSend(
+				// 		color: (currentBuild.currentResult == 'SUCCESS') ? 'good' : 'danger',
+				// 		channel: '#sagan-content',
+				// 		message: "${currentBuild.fullDisplayName} - `${currentBuild.currentResult}`\n${env.BUILD_URL}")
 				emailext(
 						subject: "[${currentBuild.fullDisplayName}] ${currentBuild.currentResult}",
 						mimeType: 'text/html',
